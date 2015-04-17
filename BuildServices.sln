@@ -1,0 +1,45 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NuGetConnector", "NuGetConnector\NuGetConnector.csproj", "{2CEEE230-72F3-4196-90F5-FDE6DF36DCB6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NuGetConnector.Tests", "NuGetConnector.Tests\NuGetConnector.Tests.csproj", "{5E82A1F9-093C-4DD6-9664-B7081619CD46}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SigningService", "SigningService\SigningService.csproj", "{56C7D777-5F74-46B2-9FEF-A9143370AD88}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SigningService.Tests", "SigningService.Tests\SigningService.Tests.csproj", "{D4D64172-277B-4521-A9A8-5B9D10565667}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{0DD879F5-C24D-40D0-A2A9-EB87EE649C76}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2CEEE230-72F3-4196-90F5-FDE6DF36DCB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CEEE230-72F3-4196-90F5-FDE6DF36DCB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CEEE230-72F3-4196-90F5-FDE6DF36DCB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CEEE230-72F3-4196-90F5-FDE6DF36DCB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E82A1F9-093C-4DD6-9664-B7081619CD46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E82A1F9-093C-4DD6-9664-B7081619CD46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E82A1F9-093C-4DD6-9664-B7081619CD46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E82A1F9-093C-4DD6-9664-B7081619CD46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56C7D777-5F74-46B2-9FEF-A9143370AD88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56C7D777-5F74-46B2-9FEF-A9143370AD88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56C7D777-5F74-46B2-9FEF-A9143370AD88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56C7D777-5F74-46B2-9FEF-A9143370AD88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4D64172-277B-4521-A9A8-5B9D10565667}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4D64172-277B-4521-A9A8-5B9D10565667}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4D64172-277B-4521-A9A8-5B9D10565667}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4D64172-277B-4521-A9A8-5B9D10565667}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
