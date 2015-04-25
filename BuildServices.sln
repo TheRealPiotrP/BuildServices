@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NuGetConnector", "NuGetConnector\NuGetConnector.csproj", "{2CEEE230-72F3-4196-90F5-FDE6DF36DCB6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyGetConnector", "MyGetConnector\MyGetConnector.csproj", "{2CEEE230-72F3-4196-90F5-FDE6DF36DCB6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NuGetConnector.Tests", "NuGetConnector.Tests\NuGetConnector.Tests.csproj", "{5E82A1F9-093C-4DD6-9664-B7081619CD46}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyGetConnector.Tests", "MyGetConnector.Tests\MyGetConnector.Tests.csproj", "{5E82A1F9-093C-4DD6-9664-B7081619CD46}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SigningService", "SigningService\SigningService.csproj", "{56C7D777-5F74-46B2-9FEF-A9143370AD88}"
 EndProject
