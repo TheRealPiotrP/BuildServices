@@ -123,12 +123,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Agents\AddPackageAgent.cs" />
+    <Compile Include="Agents\IAddPackageAgent.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\MyGetWebhookController.cs" />
     <Compile Include="Controllers\TriggerController.cs" />
+    <Compile Include="Demultiplexers\IMyGetWebhookDemultiplexer.cs" />
     <Compile Include="Demultiplexers\MyGetWebhookDemultiplexer.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -136,6 +138,7 @@
     <Compile Include="Models\Package.cs" />
     <Compile Include="Models\PackageAddedWebHookEventPayloadV1.cs" />
     <Compile Include="Models\PackageMetadata.cs" />
+    <Compile Include="Models\TriggerBody.cs" />
     <Compile Include="Models\WebHookEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ITriggerRepository.cs" />

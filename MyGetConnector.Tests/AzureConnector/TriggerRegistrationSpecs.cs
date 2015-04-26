@@ -3,9 +3,9 @@ using System.Net;
 using FluentAssertions;
 using Microsoft.Azure.AppService.ApiApps.Service;
 using Microsoft.Its.Recipes;
-using Microsoft.Owin.Testing;
 using Microsoft.Practices.Unity;
 using Moq;
+using MyGetConnector.Models;
 using MyGetConnector.Repositories;
 using MyGetConnector.Tests.Extensions;
 using Newtonsoft.Json;
@@ -32,7 +32,7 @@ namespace MyGetConnector.Tests.AzureConnector
             var triggerRepositoryMock = container.GetMock<ITriggerRepository>();
                 
             triggerRepositoryMock
-                .Setup(t => t.RegisterTrigger(It.IsAny<string>(), It.IsAny<TriggerInput<string, string>>()));
+                .Setup(t => t.RegisterTrigger(It.IsAny<string>(), It.IsAny<TriggerInput<string, TriggerBody>>()));
 
             using (var server = TestServer.Create(container))
             {
@@ -45,7 +45,7 @@ namespace MyGetConnector.Tests.AzureConnector
             triggerRepositoryMock
                 .Verify(r => r.RegisterTrigger(
                         It.Is<string>(s => s == triggerId),
-                        It.Is<TriggerInput<string, string>>(t => t.GetCallback().CallbackUri.ToString() == callbackUrl)), Times.Once);
+                        It.Is<TriggerInput<string, TriggerBody>>(t => t.GetCallback().CallbackUri.ToString() == callbackUrl)), Times.Once);
         }
 
         [Fact]
@@ -65,7 +65,7 @@ namespace MyGetConnector.Tests.AzureConnector
             triggerRepositoryMock
                 .Verify(r => r.RegisterTrigger(
                         It.IsAny<string>(),
-                        It.IsAny<TriggerInput<string, string>>()), Times.Never);
+                        It.IsAny<TriggerInput<string, TriggerBody>>()), Times.Never);
         }
 
         [Fact]
@@ -85,7 +85,7 @@ namespace MyGetConnector.Tests.AzureConnector
             triggerRepositoryMock
                 .Verify(r => r.RegisterTrigger(
                         It.IsAny<string>(),
-                        It.IsAny<TriggerInput<string, string>>()), Times.Never);
+                        It.IsAny<TriggerInput<string, TriggerBody>>()), Times.Never);
         }
     }
 }

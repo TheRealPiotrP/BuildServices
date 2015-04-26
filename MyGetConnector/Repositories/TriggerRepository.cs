@@ -1,31 +1,35 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Azure.AppService.ApiApps.Service;
+using MyGetConnector.Models;
 
 namespace MyGetConnector.Repositories
 {
     public class TriggerRepository : ITriggerRepository
     {
-        private readonly IDictionary<string, TriggerInput<string, string>> _store;
-
-        public TriggerRepository()
-        {
-            _store = new Dictionary<string, TriggerInput<string, string>>();
-        }
+        private readonly IDictionary<string, TriggerInput<string, TriggerBody>> _store =
+            new Dictionary<string, TriggerInput<string, TriggerBody>>();
 
         // Register a push trigger.
-        public void RegisterTrigger(string triggerId, TriggerInput<string, string> triggerInput)
+        public void RegisterTrigger(string triggerId, TriggerInput<string, TriggerBody> triggerInput)
         {
-            _store.Add(triggerId, triggerInput);
+            lock (_store)
+            {
+                _store.Add(triggerId, triggerInput);
+            }
         }
 
-        // Fire the assoicated push trigger when some file is changed.
-        public void FireTriggers(Uri packageUri)
+        public IList<ClientTriggerCallback<TriggerBody>> GetTriggerCallbacks()
         {
-            foreach (var input in _store.Values)
+            IList<ClientTriggerCallback<TriggerBody>> callbacks;
+
+            lock (_store)
             {
-                input.GetCallback().InvokeAsync(Runtime.FromAppSettings(), packageUri);
+                callbacks = _store.Values.Select(v => v.GetCallback()).ToList();
             }
+
+            return callbacks;
         }
     }
 }

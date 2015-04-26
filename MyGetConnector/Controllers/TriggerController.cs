@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Microsoft.Azure.AppService.ApiApps.Service;
+using MyGetConnector.Models;
 using MyGetConnector.Repositories;
 
 namespace MyGetConnector.Controllers
@@ -17,7 +18,7 @@ namespace MyGetConnector.Controllers
         }
 
         public HttpResponseMessage Put(string triggerId,
-            [FromBody] TriggerInput<string, string> triggerInput)
+            [FromBody] TriggerInput<string, TriggerBody> triggerInput)
         {
             ClientTriggerCallback callback;
 

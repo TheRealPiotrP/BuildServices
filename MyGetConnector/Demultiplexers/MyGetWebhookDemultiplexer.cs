@@ -1,27 +1,28 @@
 ﻿using System;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
-using MyGetConnector.Repositories;
+using MyGetConnector.Agents;
 using Signature.Web.Models;
 
 namespace MyGetConnector.Demultiplexers
 {
-    public class MyGetWebhookDemultiplexer
+    public class MyGetWebhookDemultiplexer : IMyGetWebhookDemultiplexer
     {
-        private readonly ITriggerRepository _triggerRepository;
+        private readonly IAddPackageAgent _addPackageAgent;
 
-        public MyGetWebhookDemultiplexer(ITriggerRepository triggerRepository)
+        public MyGetWebhookDemultiplexer(IAddPackageAgent addPackageAgent)
         {
-            _triggerRepository = triggerRepository;
+            _addPackageAgent = addPackageAgent;
         }
 
-        public void Demultiplex(WebHookEvent webHookEvent)   
+        public async Task Demultiplex(WebHookEvent webHookEvent)   
         {
             switch (webHookEvent.PayloadType)
             {
                 case "PackageAddedWebHookEventPayloadV1":
-                    _triggerRepository.FireTriggers(new Uri(webHookEvent.Payload.PackageDownloadUrl));
+                    await _addPackageAgent.AddPackage(new Uri(webHookEvent.Payload.PackageDownloadUrl));
                     break;
                 default:
                     throw new HttpResponseException(new HttpResponseMessage

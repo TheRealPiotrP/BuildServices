@@ -1,6 +1,8 @@
 using System;
 using System.Net.Http;
 using Microsoft.Practices.Unity;
+using MyGetConnector.Agents;
+using MyGetConnector.Demultiplexers;
 using MyGetConnector.Repositories;
 
 namespace MyGetConnector.App_Start
@@ -11,7 +13,7 @@ namespace MyGetConnector.App_Start
     public class UnityConfig
     {
         #region Unity Container
-        private static Lazy<IUnityContainer> container = new Lazy<IUnityContainer>(() =>
+        private static readonly Lazy<IUnityContainer> Container = new Lazy<IUnityContainer>(() =>
         {
             var container = new UnityContainer();
             RegisterTypes(container);
@@ -23,7 +25,7 @@ namespace MyGetConnector.App_Start
         /// </summary>
         public static IUnityContainer GetConfiguredContainer()
         {
-            return container.Value;
+            return Container.Value;
         }
         #endregion
 
@@ -33,8 +35,9 @@ namespace MyGetConnector.App_Start
         /// change the defaults), as Unity allows resolving a concrete type even if it was not previously registered.</remarks>
         private static void RegisterTypes(IUnityContainer container)
         {
-            container.RegisterInstance(new HttpClient());
-            container.RegisterType(typeof(ITriggerRepository), typeof(TriggerRepository));
+            container.RegisterType<ITriggerRepository, TriggerRepository>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IAddPackageAgent, AddPackageAgent>();
+            container.RegisterType<IMyGetWebhookDemultiplexer, MyGetWebhookDemultiplexer>();
         }
     }
 }
