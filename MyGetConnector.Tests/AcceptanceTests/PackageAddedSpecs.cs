@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Configuration;
 using System.Linq;
 using FluentAssertions;
 using Microsoft.Its.Recipes;
 using Microsoft.Owin.MockService;
-using Moq;
-using MyGetConnector.Repositories;
 using MyGetConnector.Tests.Extensions;
 using Newtonsoft.Json;
 using Xunit;
