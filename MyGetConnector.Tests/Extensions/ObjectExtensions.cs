@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace Newtonsoft.Json
 {
@@ -14,10 +10,15 @@ namespace Newtonsoft.Json
         {
             return JsonConvert.SerializeObject(obj);
         }
+
+        public static StringContent ToJsonStringContent(this Object obj, string contentType)
+        {
+            return new StringContent(JsonConvert.SerializeObject(obj), Encoding.UTF8, contentType);
+        }
+
         public static StringContent ToJsonStringContent(this Object obj)
         {
-            return new StringContent(JsonConvert.SerializeObject(obj), Encoding.UTF8,
-                "application/json");
+            return obj.ToJsonStringContent("application/json");
         }
     }
 }

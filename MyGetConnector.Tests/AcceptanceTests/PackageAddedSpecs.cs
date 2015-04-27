@@ -25,7 +25,7 @@ namespace MyGetConnector.Tests.AcceptanceTests
             using (var server = Microsoft.Owin.Testing.TestServer.Create<Startup>())
             {
                 server.HttpClient.PostAsync("/api/MyGetWebhook/",
-                    Any.MyGet.WebHooks.PackageAddedPayload(packageUri).ToJsonStringContent())
+                    Any.MyGet.WebHooks.PackageAddedPayload(packageUri).ToJsonStringContent("application/vnd.myget.webhooks.v1+json"))
                     .Result
                     .ShouldSucceed();
             }
@@ -49,12 +49,14 @@ namespace MyGetConnector.Tests.AcceptanceTests
                 using (var server = Microsoft.Owin.Testing.TestServer.Create<Startup>())
                 {
                     server.HttpClient.PutAsync(String.Format("/api/Trigger?triggerId={0}", Any.Guid()),
-                        Any.Azure.AppServiceTrigger.MyGetConnectorTriggerBody(callbackUri)
-                            .ToJsonStringContent())
+                            Any.Azure.AppServiceTrigger.MyGetConnectorTriggerBody(callbackUri).ToJsonStringContent())
                         .Wait();
 
-                    server.HttpClient.PostAsync("/api/MyGetWebhook/",
-                        Any.MyGet.WebHooks.PackageAddedPayload(packageUri).ToJsonStringContent())
+                    server
+                        .HttpClient
+                        .AsMyGetTriggerSource()
+                        .PostAsync("/api/MyGetWebhook/",
+                            Any.MyGet.WebHooks.PackageAddedPayload(packageUri).ToJsonStringContent("application/vnd.myget.webhooks.v1+json"))
                         .Result
                         .ShouldSucceed();
                 }
@@ -84,14 +86,16 @@ namespace MyGetConnector.Tests.AcceptanceTests
 
                         var callbackUri = mockService.GetBaseAddress() + callbackPath;
 
-                        server.HttpClient.PutAsync(String.Format("/api/Trigger?triggerId={0}", Any.Guid()),
-                            Any.Azure.AppServiceTrigger.MyGetConnectorTriggerBody(callbackUri)
-                                .ToJsonStringContent())
+                        server.HttpClient
+                            .PutAsync(String.Format("/api/Trigger?triggerId={0}", Any.Guid()),
+                                Any.Azure.AppServiceTrigger.MyGetConnectorTriggerBody(callbackUri).ToJsonStringContent())
                             .Wait();
                     }
 
-                    server.HttpClient.PostAsync("/api/MyGetWebhook/",
-                        Any.MyGet.WebHooks.PackageAddedPayload(packageUri).ToJsonStringContent())
+                    server.HttpClient
+                        .AsMyGetTriggerSource()
+                        .PostAsync("/api/MyGetWebhook/",
+                            Any.MyGet.WebHooks.PackageAddedPayload(packageUri).ToJsonStringContent("application/vnd.myget.webhooks.v1+json"))
                         .Result
                         .ShouldSucceed();
                 }
@@ -111,8 +115,10 @@ namespace MyGetConnector.Tests.AcceptanceTests
                     Any.Azure.AppServiceTrigger.MyGetConnectorTriggerBody(Any.Uri().ToString()).ToJsonStringContent())
                     .Wait();
 
-                server.HttpClient.PostAsync("/api/MyGetWebhook/",
-                    Any.MyGet.WebHooks.PackageAddedPayload(packageUri).ToJsonStringContent())
+                server.HttpClient
+                    .AsMyGetTriggerSource()
+                    .PostAsync("/api/MyGetWebhook/",
+                        Any.MyGet.WebHooks.PackageAddedPayload(packageUri).ToJsonStringContent("application/vnd.myget.webhooks.v1+json"))
                     .Result
                     .ShouldSucceed();
             }
@@ -150,8 +156,11 @@ namespace MyGetConnector.Tests.AcceptanceTests
                             .Wait();
                     }
 
-                    server.HttpClient.PostAsync("/api/MyGetWebhook/",
-                        Any.MyGet.WebHooks.PackageAddedPayload(packageUri).ToJsonStringContent())
+                    server
+                        .HttpClient
+                        .AsMyGetTriggerSource()
+                        .PostAsync("/api/MyGetWebhook/",
+                            Any.MyGet.WebHooks.PackageAddedPayload(packageUri).ToJsonStringContent("application/vnd.myget.webhooks.v1+json"))
                         .Result
                         .ShouldSucceed();
                 }

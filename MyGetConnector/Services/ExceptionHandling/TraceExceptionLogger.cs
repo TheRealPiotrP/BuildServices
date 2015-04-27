@@ -1,6 +1,6 @@
 ﻿using System.Web.Http.ExceptionHandling;
 
-namespace MyGetConnector.ExceptionHandling
+namespace MyGetConnector.Services.ExceptionHandling
 {
     public class TraceExceptionLogger : ExceptionLogger
     {

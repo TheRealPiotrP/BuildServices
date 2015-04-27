@@ -133,6 +133,7 @@
     <Compile Include="AcceptanceTests\PackageAddedSpecs.cs" />
     <Compile Include="AzureConnector\TriggerRegistrationSpecs.cs" />
     <Compile Include="Extensions\ConfigurationManagerExtensions.cs" />
+    <Compile Include="Extensions\HttpClientExtensions.cs" />
     <Compile Include="Extensions\HttpResponseMessageExtensions.cs" />
     <Compile Include="Extensions\IUnityContainerExtensions.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />

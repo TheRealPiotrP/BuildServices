@@ -159,6 +159,7 @@
   <ItemGroup>
     <Compile Include="Agents\AddPackageAgent.cs" />
     <Compile Include="Agents\IAddPackageAgent.cs" />
+    <Compile Include="App_Start\FormatterConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
@@ -167,7 +168,8 @@
     <Compile Include="Controllers\TriggerController.cs" />
     <Compile Include="Demultiplexers\IMyGetWebhookDemultiplexer.cs" />
     <Compile Include="Demultiplexers\MyGetWebhookDemultiplexer.cs" />
-    <Compile Include="ExceptionHandling\TraceExceptionLogger.cs" />
+    <Compile Include="Formatters\TypedJsonMediaFormatter.cs" />
+    <Compile Include="Services\ExceptionHandling\TraceExceptionLogger.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
