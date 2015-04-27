@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Net.Http;
 using System.Threading.Tasks;
+using Its.Log.Instrumentation;
 using Microsoft.Azure.AppService.ApiApps.Service;
 using MyGetConnector.Models;
 using MyGetConnector.Repositories;
@@ -29,9 +31,15 @@ namespace MyGetConnector.Agents
                         Runtime.FromAppSettings(),
                         triggerBody);
                 }
-                catch (InvalidOperationException)
+                catch (HttpRequestException e)
                 {
-                    // ignoring failures due to bad callback Url
+                    // Server Unavailable
+                    Log.Write(() => e);
+                }
+                catch (InvalidOperationException e)
+                {
+                    // Bad Request
+                    Log.Write(() => e);
                 }
             }
         }

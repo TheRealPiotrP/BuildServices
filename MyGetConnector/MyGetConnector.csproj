@@ -39,6 +39,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Its.Log">
+      <HintPath>..\packages\Its.Log.2.8.3\lib\net40\Its.Log.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.ApplicationInsights">
       <HintPath>..\packages\Microsoft.ApplicationInsights.0.14.0-build20632\lib\net40\Microsoft.ApplicationInsights.dll</HintPath>
     </Reference>
@@ -164,6 +167,7 @@
     <Compile Include="Controllers\TriggerController.cs" />
     <Compile Include="Demultiplexers\IMyGetWebhookDemultiplexer.cs" />
     <Compile Include="Demultiplexers\MyGetWebhookDemultiplexer.cs" />
+    <Compile Include="ExceptionHandling\TraceExceptionLogger.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

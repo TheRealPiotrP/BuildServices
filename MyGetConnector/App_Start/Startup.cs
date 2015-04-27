@@ -1,9 +1,11 @@
 ﻿using System.Web.Http;
+using System.Web.Http.ExceptionHandling;
 using Microsoft.Owin;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.WebApi;
 using MyGetConnector;
 using MyGetConnector.App_Start;
+using MyGetConnector.ExceptionHandling;
 using Owin;
 
 [assembly: OwinStartup(typeof(Startup))]
@@ -27,6 +29,8 @@ namespace MyGetConnector
             SwaggerConfig.Register(config);
 
             WebApiConfig.Register(config);
+
+            config.Services.Add(typeof(IExceptionLogger), new TraceExceptionLogger());
 
             appBuilder.UseWebApi(config);
         }
