@@ -200,16 +200,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <None Include=".config\test\ServiceIdentitySettings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <None Include=".config\local\ServiceIdentitySettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
     <Content Include="Metadata\deploymentTemplates\apiappconfig.azureresource.json" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config" />
-    <Content Include=".config\test\KeyVaultSettings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Content Include=".config\local\KeyVaultSettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Project_Readme.html" />
   </ItemGroup>

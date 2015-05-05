@@ -11,7 +11,7 @@ namespace SigningService.Tests
         public async void When_called_it_returns()
         {
             Settings.Precedence = new[] {"test"};
-
+            
             var keyVaultAgent = new KeyVaultAgent();
 
             var foo = await keyVaultAgent.Sign(Any.String(32,32, Characters.LatinLettersAndNumbers()));

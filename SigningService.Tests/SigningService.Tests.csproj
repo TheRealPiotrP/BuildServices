@@ -126,6 +126,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include=".config\test\KeyVaultSettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include=".config\test\ServiceIdentitySettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Resources\Microsoft.Bcl.1.1.8.nupkg" />
