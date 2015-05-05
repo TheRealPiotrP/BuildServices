@@ -10,7 +10,6 @@ namespace MyGetConnector.Tests
         public static IUnityContainer GetMockedContainer()
         {
             var container = new UnityContainer();
-            container.RegisterInstance(new HttpClient());
             container.RegisterInstance(typeof(ITriggerRepository), new Mock<ITriggerRepository>(MockBehavior.Strict).Object);
 
             return container;
