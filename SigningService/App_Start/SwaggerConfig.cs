@@ -11,6 +11,11 @@ namespace SigningService
     {
         public static void Register()
         {
+            Register(GlobalConfiguration.Configuration);
+        }
+
+        public static void Register(HttpConfiguration httpConfiguration)
+        {
             var thisAssembly = typeof(SwaggerConfig).Assembly;
 
             GlobalConfiguration.Configuration
