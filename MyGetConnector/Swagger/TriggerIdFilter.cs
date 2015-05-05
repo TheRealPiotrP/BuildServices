@@ -5,7 +5,7 @@ using Swashbuckle.Swagger;
 
 namespace MyGetConnector.Swagger
 {
-    public class TriggerStateFilter : IOperationFilter
+    public class TriggerIdFilter : IOperationFilter
     {
 
         public void Apply(Operation operation, SchemaRegistry schemaRegistry, System.Web.Http.Description.ApiDescription apiDescription)
@@ -20,10 +20,10 @@ namespace MyGetConnector.Swagger
             {
                 triggerStateParam.vendorExtensions = new Dictionary<string, object>();
             }
-            
+
+            triggerStateParam.vendorExtensions.Add("x-ms-summary", "Trigger ID");
             triggerStateParam.vendorExtensions.Add("x-ms-visibility", "internal");
-            triggerStateParam.vendorExtensions.Add("x-ms-scheduler-recommendation",
-                "@coalesce(triggers()?.outputs?.body?['triggerState'], '')");
+            triggerStateParam.vendorExtensions.Add("x-ms-scheduler-recommendation", "@workflow().name");
         }
     }
 }

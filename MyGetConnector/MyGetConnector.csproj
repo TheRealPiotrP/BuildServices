@@ -181,6 +181,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ITriggerRepository.cs" />
     <Compile Include="Repositories\TriggerRepository.cs" />
+    <Compile Include="Swagger\TriggerCallbackUrlFilter.cs" />
+    <Compile Include="Swagger\TriggerIdFilter.cs" />
     <Compile Include="Swagger\TriggerStateFilter.cs" />
   </ItemGroup>
   <ItemGroup>
