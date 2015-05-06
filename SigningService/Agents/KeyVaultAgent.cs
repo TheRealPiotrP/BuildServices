@@ -1,3 +1,4 @@
+using System;
 using System.Text;
 using System.Threading.Tasks;
 using Its.Configuration;
@@ -9,9 +10,11 @@ namespace SigningService.Agents
 {
     public class KeyVaultAgent : IKeyVaultAgent
     {
-        public async Task<string> Sign(string digest)
+        public async Task<byte[]> Sign(byte[] digest)
         {
-            var digestBytes = Encoding.UTF8.GetBytes(digest);
+            if (digest == null) throw new ArgumentNullException("digest");
+
+            if (digest.Length != 32) throw new ArgumentException("The value must have 32 bytes", "digest");
 
             var client = new KeyVaultClient(GetAccessToken);
 
@@ -21,9 +24,9 @@ namespace SigningService.Agents
                 await client.SignAsync(
                         keyVaultSettings.KeyId,
                         keyVaultSettings.Algorithm,
-                        digestBytes);
+                        digest);
 
-            return Encoding.UTF8.GetString(signResult.Result);
+            return signResult.Result;
         }
 
         // https://samlman.wordpress.com/2015/05/01/fun-with-azure-key-vault-services/

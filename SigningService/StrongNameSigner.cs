@@ -53,12 +53,12 @@ namespace SigningService
             throw new NotImplementedException();
         }
 
-        private void InsertSignedDigest(PackagePart packagePart, Task<string> signedDigest)
+        private void InsertSignedDigest(PackagePart packagePart, Task<byte[]> signedDigest)
         {
             throw new NotImplementedException();
         }
 
-        private string GetDigest(PackagePart packagePart)
+        private byte[] GetDigest(PackagePart packagePart)
         {
             throw new NotImplementedException();
         }

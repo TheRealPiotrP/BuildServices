@@ -10,7 +10,7 @@ namespace SigningService.Agents
     {
         public async Task<Package> GetPackage(Uri packageUri)
         {
-            if (packageUri == null) throw new ArgumentNullException(nameof(packageUri));
+            if (packageUri == null) throw new ArgumentNullException("packageUri");
 
             var httpClient = new HttpClient();
 

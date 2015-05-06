@@ -20,7 +20,7 @@ namespace SigningService.Agents
 
         public async Task SignPackage(Uri packageUri)
         {
-            if (packageUri == null) throw new ArgumentNullException(nameof(packageUri));
+            if (packageUri == null) throw new ArgumentNullException("packageUri");
 
             var package = await _packageAgent.GetPackage(packageUri);
 

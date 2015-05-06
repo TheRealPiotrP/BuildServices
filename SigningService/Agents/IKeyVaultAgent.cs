@@ -4,6 +4,6 @@ namespace SigningService.Agents
 {
     public interface IKeyVaultAgent
     {
-        Task<string> Sign(string digest);
+        Task<byte[]> Sign(byte[] digest);
     }
 }

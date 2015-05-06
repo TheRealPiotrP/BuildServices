@@ -13,7 +13,7 @@ namespace SigningService.Tests
     public class PackageAgentSpecs
     {
         [Fact]
-        public async void When_given_a_valid_package_Url_it_returns_the_package()
+        public async void When_packageUrl_is_valid_Then_it_returns_the_package()
         {
             var packageAgent = new PackageAgent();
 
@@ -38,7 +38,7 @@ namespace SigningService.Tests
         }
 
         [Fact]
-        public void When_given_a_null_packageUrl_it_throws_an_exception_with_a_useful_message()
+        public void When_packageUrl_is_null_Then_it_throws_an_exception_with_a_useful_message()
         {
             var packageAgent = new PackageAgent();
 
@@ -50,7 +50,7 @@ namespace SigningService.Tests
         }
 
         [Fact]
-        public void When_given_an_inaccesible_packageUrl_it_throws_an_exception_with_a_useful_message()
+        public void When_packageUrl_is_inaccessible_it_throws_an_exception_with_a_useful_message()
         {
             var packageAgent = new PackageAgent();
 

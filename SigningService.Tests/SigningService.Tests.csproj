@@ -134,12 +134,13 @@
     </None>
     <None Include="app.config" />
     <None Include="packages.config" />
-    <None Include="Resources\Microsoft.Bcl.1.1.8.nupkg" />
+    <None Include="Resources\Microsoft.Bcl.1.1.8.nupkg.testfile" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
