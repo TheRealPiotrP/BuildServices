@@ -30,6 +30,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -143,6 +144,10 @@
     <Reference Include="Swashbuckle.Core">
       <HintPath>..\packages\Swashbuckle.Core.5.0.0\lib\net40\Swashbuckle.Core.dll</HintPath>
     </Reference>
+    <Reference Include="System.Collections.Immutable, Version=1.1.36.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.1.1.36\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.IdentityModel" />
     <Reference Include="System.IdentityModel.Tokens.Jwt">
       <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.4.0.0\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
@@ -222,12 +227,14 @@
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\SignController.cs" />
+    <Compile Include="Extensions\StringBuilderExt.cs" />
+    <Compile Include="Extensions\StringExt.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Agents\IKeyVaultAgent.cs" />
     <Compile Include="Agents\IPackageAgent.cs" />
-    <Compile Include="IPackagePartSigner.cs" />
+    <Compile Include="Signers\IPackagePartSigner.cs" />
     <Compile Include="Agents\IPushTriggerAgent.cs" />
     <Compile Include="Agents\ISignAgent.cs" />
     <Compile Include="Repositories\ISignerRepository.cs" />
@@ -237,7 +244,142 @@
     <Compile Include="Services\Configuration\ServiceIdentitySettings.cs" />
     <Compile Include="Services\ExceptionHandling\TraceExceptionLogger.cs" />
     <Compile Include="Agents\SignAgent.cs" />
-    <Compile Include="StrongNameSigner.cs" />
+    <Compile Include="Extensions\ByteArrayExt.cs" />
+    <Compile Include="Signers\StrongName\CustomAttributeDataExtractor.cs" />
+    <Compile Include="Signers\StrongName\HashingBlock.cs" />
+    <Compile Include="Signers\StrongName\HashingBlockHashing.cs" />
+    <Compile Include="Signers\StrongName\ExceptionsHelper.cs" />
+    <Compile Include="Signers\StrongName\HashingHelpers.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Internal\MemoryBlocks\AbstractMemoryBlock.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Internal\MemoryBlocks\ByteArrayMemoryBlock.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Internal\MemoryBlocks\ByteArrayMemoryProvider.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Internal\MemoryBlocks\ExternalMemoryBlock.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Internal\MemoryBlocks\ExternalMemoryBlockProvider.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Internal\MemoryBlocks\MemoryBlockProvider.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Internal\MemoryBlocks\MemoryMappedFileBlock.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Internal\MemoryBlocks\NativeHeapMemoryBlock.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Internal\MemoryBlocks\StreamConstraints.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Internal\MemoryBlocks\StreamMemoryBlockProvider.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Internal\Utilities\BitArithmetic.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Internal\Utilities\EmptyArray.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Internal\Utilities\EncodingHelper.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Internal\Utilities\FileStreamReadLightUp.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Internal\Utilities\ImmutableByteArrayInterop.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Internal\Utilities\ImmutableMemoryStream.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Internal\Utilities\LightUpHelper.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Internal\Utilities\MemoryBlock.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Internal\Utilities\MemoryMapLightUp.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Internal\Utilities\ObjectPool`1.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Internal\Utilities\ReadOnlyUnmanagedMemoryStream.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Internal\Utilities\StreamExtensions.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\MetadataResources.Designer.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\AssemblyDefinition.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\AssemblyFile.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\AssemblyReference.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\BlobReader.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\Constant.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\ConstantTypeCode.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\CustomAttribute.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\CustomAttributeNamedArgumentKind.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\DeclarativeSecurityAttribute.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\Ecma335\EditAndContinueLogEntry.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\Ecma335\EditAndContinueOperation.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\Ecma335\ExportedTypeExtensions.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\Ecma335\HeapIndex.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\Ecma335\MetadataReaderExtensions.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\Ecma335\MetadataTokens.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\Ecma335\TableIndex.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\EventDefinition.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\ExceptionRegion.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\ExceptionRegionKind.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\ExportedType.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\FieldDefinition.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\GenericParameter.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\GenericParameterConstraint.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\HandleCollections.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\HandleComparer.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\HandleKind.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\Handles.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\InterfaceImplementation.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\Internal\COR20Constants.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\Internal\CorElementType.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\Internal\CustomAttributeTypeTag.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\Internal\HasConstantTag.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\Internal\HasCustomAttributeTag.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\Internal\HasDeclSecurityTag.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\Internal\HasFieldMarshalTag.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\Internal\HasSemanticsTag.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\Internal\Heaps.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\Internal\ImplementationTag.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\Internal\MemberForwardedTag.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\Internal\MemberRefParentTag.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\Internal\MetadataFlags.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\Internal\MetadataHeader.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\Internal\MetadataStreamConstants.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\Internal\MetadataTableHeader.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\Internal\MethodDefOrRefTag.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\Internal\NamespaceCache.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\Internal\NamespaceData.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\Internal\ResolutionScopeTag.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\Internal\StreamHeader.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\Internal\Tables.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\Internal\Treatments.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\Internal\TypeDefOrRefTag.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\Internal\TypeOrMethodDefTag.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\ManifestResource.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\MemberReference.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\MemberReferenceKind.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\MetadataAggregator.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\MetadataKind.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\MetadataReader.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\MetadataReader.WinMD.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\MetadataReaderOptions.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\MetadataStringComparer.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\MetadataStringDecoder.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\MethodBodyBlock.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\MethodDefinition.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\MethodImplementation.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\MethodImport.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\MethodSpecification.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\ModuleDefinition.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\ModuleReference.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\NamespaceDefinition.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\Parameter.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\PEReaderExtensions.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\PropertyDefinition.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\SerializationTypeCode.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\SignatureAttributes.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\SignatureCallingConvention.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\SignatureHeader.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\SignatureKind.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\SignatureTypeCode.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\StandaloneSignature.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\TypeDefinition.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\TypeLayout.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\TypeReference.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\Metadata\TypeSpecification.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\PortableExecutable\CoffHeader.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\PortableExecutable\CorFlags.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\PortableExecutable\CorHeader.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\PortableExecutable\DirectoryEntry.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\PortableExecutable\Machine.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\PortableExecutable\PEBinaryReader.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\PortableExecutable\PEFileConstants.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\PortableExecutable\PEFileFlags.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\PortableExecutable\PEHeader.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\PortableExecutable\PEHeaders.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\PortableExecutable\PEMemoryBlock.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\PortableExecutable\PEReader.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\PortableExecutable\PEStreamOptions.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\PortableExecutable\SectionHeader.cs" />
+    <Compile Include="Signers\StrongName\MetadataReader\System.Reflection.cs" />
+    <Compile Include="Models\PublicKey.cs" />
+    <Compile Include="Signers\StrongName\PublicKeyBlob.cs" />
+    <Compile Include="Signers\StrongName\SectionInfo.cs" />
+    <Compile Include="Signers\StrongName\StrongNameSignerHelper.cs" />
+    <Compile Include="Signers\StrongName\AssemblyMetadataExtractor.cs" />
+    <Compile Include="Signers\StrongName\StrongNameSignerException.cs" />
+    <Compile Include="Signers\StrongName\StrongNameSigner.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="apiapp.json" />
