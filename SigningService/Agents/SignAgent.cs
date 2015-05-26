@@ -1,7 +1,7 @@
-﻿using System;
+﻿using SigningService.Repositories;
+using System;
 using System.IO.Packaging;
 using System.Threading.Tasks;
-using SigningService.Repositories;
 
 namespace SigningService.Agents
 {
@@ -24,28 +24,26 @@ namespace SigningService.Agents
 
             var package = await _packageAgent.GetPackage(packageUri);
 
-            var signedPackage = Sign(package);
+            await SignAsync(package);
 
-            var signedPackageUri = _packageAgent.StorePackage(signedPackage);
+            var signedPackageUri = _packageAgent.StorePackage(package);
 
             _pushTriggerAgent.FirePackageSignedTrigger(signedPackageUri);
         }
 
-        private Package Sign(Package package)
+        private async Task SignAsync(Package package)
         {
             foreach (var packagePart in package.GetParts())
             {
-                SignPackagePart(packagePart);
+                await SignPackagePartAsync(packagePart);
             }
-
-            return package;
         }
 
-        private void SignPackagePart(PackagePart packagePart)
+        private async Task SignPackagePartAsync(PackagePart packagePart)
         {
             foreach (var signer in _signerRepository)
             {
-                signer.TrySign(packagePart);
+                await signer.TrySignAsync(packagePart.GetStream());
             }
         }
     }

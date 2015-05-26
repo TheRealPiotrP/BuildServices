@@ -1,4 +1,5 @@
 ﻿{
-  "KeyId": "https://puszkipkeyvault.vault.azure.net/keys/FirstKey/fa220215edd84347bc9af7bafdaf1b5a",
-  "Algorithm" :  "RS256"
+    "Vault" : "https://puszkipkeyvault.vault.azure.net",
+    "KeyId": "https://puszkipkeyvault.vault.azure.net:443/keys/KrzyszekKey",
+    "Algorithm": "RS256"
 }
